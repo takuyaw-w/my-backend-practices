@@ -22,5 +22,5 @@ erDiagram
         timestamp deleted_at
     }
 
-    TASKS ||--o| STATUSES : has
+    TASKS ||--|{ STATUSES : has
 ```
