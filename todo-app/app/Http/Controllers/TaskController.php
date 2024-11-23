@@ -2,69 +2,88 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\TaskQueryRequest;
+use App\Http\Requests\UpdateTaskRequest;
+use App\Services\TaskService;
+use Illuminate\Http\JsonResponse;
 
 class TaskController extends Controller
 {
-    //
-    public function index()
+    protected TaskService $taskService;
+
+    public function __construct(TaskService $taskService)
     {
-        return response()->json(Task::all(), 200);
+        $this->taskService = $taskService;
     }
 
-    public function store(Request $request)
+    //
+    public function index(TaskQueryRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|in:pending,in_progress,completed',
-            'priority' => 'required|in:low,medium,high',
-        ]);
+        $status = $request->query('status');
+        $from = $request->query('from');
+        $to = $request->query('to');
+        $limit = $request->query('limit', 10);
+        $offset = $request->query('offset', 0);
 
-        $task = Task::create($validated);
+        $tasks = $this->taskService->getTasks(
+            $status, $from, $to, $limit, $offset
+        );
+
+        return response()->json($tasks, 200);
+    }
+
+    public function store(StoreTaskRequest $request): JsonResponse
+    {
+        $validated = $request->validated();
+
+        $task = $this->taskService->createTask($validated);
+
         return response()->json($task, 201);
     }
 
-    public function show($id)
+    public function show(int $id): JsonResponse
     {
-        $task = Task::find($id);
+        $task = $this->taskService->getTaskById($id);
 
-        if(!$task) {
+        if (! $task) {
             return response()->json(['message' => 'Task not found.', 404]);
         }
 
         return response()->json($task, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateTaskRequest $request, int $id): JsonResponse
     {
-        $task = Task::find($id);
+        $task = $this->taskService->getTaskById($id);
 
-        if(!$task) {
+        if (! $task) {
             return response()->json(['message' => 'Task not found.', 404]);
         }
 
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|in:pending,in_progress,completed',
-            'priority' => 'required|in:low,medium,high',
-        ]);
+        $validated = $request->validated();
 
-        $task->update($validated);
+        if (! $this->taskService->updateTask($task, $validated)) {
+            return response()->json(['message' => 'Failed to update task.'], 500);
+        }
+        $task->refresh();
+
         return response()->json($task, 200);
     }
 
-    public function destroy($id)
+    public function destroy(int $id): JsonResponse
     {
-        $task = Task::find($id);
+        $task = $this->taskService->getTaskById($id);
 
-        if(!$task) {
+        if (! $task) {
             return response()->json(['message' => 'Task not found.', 404]);
         }
 
-        $task->delete();
+        $deleted = $this->taskService->deleteTask($task);
+        if (! $deleted) {
+            return response()->json(['message' => 'Failed to delete task.'], 500);
+        }
+
         return response()->json(['message' => 'Task deleted successfully', 200]);
     }
 }

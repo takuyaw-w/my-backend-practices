@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Comment;
 use App\Models\Task;
+use Illuminate\Database\Seeder;
 
 class CommentSeeder extends Seeder
 {
@@ -16,7 +15,7 @@ class CommentSeeder extends Seeder
     {
         Task::all()->each(function ($task) {
             Comment::factory()->count(100)->create([
-                'task_id' => $task->id
+                'task_id' => $task->id,
             ]);
         });
     }
