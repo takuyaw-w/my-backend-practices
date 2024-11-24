@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Models\Task;
+use App\Services\Interface\TaskServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class TaskService
+class TaskService implements TaskServiceInterface
 {
     public function getTasks(
         ?string $status,
@@ -15,7 +16,7 @@ class TaskService
         int $offset = 0): Collection
     {
         return Task::query()
-            ->status($status)
+        ->status($status)
             ->fromDate($from)
             ->toDate($to)
             ->limitOffset($limit, $offset)

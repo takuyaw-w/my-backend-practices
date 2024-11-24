@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\TaskQueryRequest;
 use App\Http\Requests\UpdateTaskRequest;
-use App\Services\TaskService;
+use App\Services\Interface\TaskServiceInterface;
 use Illuminate\Http\JsonResponse;
 
 class TaskController extends Controller
 {
-    protected TaskService $taskService;
+    protected TaskServiceInterface $taskService;
 
-    public function __construct(TaskService $taskService)
+    public function __construct(TaskServiceInterface $taskService)
     {
         $this->taskService = $taskService;
     }
