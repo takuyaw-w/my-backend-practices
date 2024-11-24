@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Models\Task;
+use App\Services\Interface\TaskServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class TaskService
+class TaskService implements TaskServiceInterface
 {
     public function getTasks(
         ?string $status,
