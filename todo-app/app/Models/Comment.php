@@ -6,14 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
- *
  * @property int $id
  * @property int $task_id
  * @property string $comment
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Task $task
+ *
  * @method static \Database\Factories\CommentFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment newQuery()
@@ -23,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment whereTaskId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Comment whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Comment extends Model

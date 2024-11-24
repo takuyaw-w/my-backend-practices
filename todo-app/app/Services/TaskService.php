@@ -16,7 +16,7 @@ class TaskService implements TaskServiceInterface
         int $offset = 0): Collection
     {
         return Task::query()
-        ->status($status)
+            ->status($status)
             ->fromDate($from)
             ->toDate($to)
             ->limitOffset($limit, $offset)

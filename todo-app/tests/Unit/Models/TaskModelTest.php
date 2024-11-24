@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Models\Task;
 use App\Models\Comment;
+use App\Models\Task;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Comment> $comments
  * @property-read int|null $comments_count
+ *
  * @method static \Database\Factories\TaskFactory factory($count = null, $state = [])
  * @method static Builder<static>|Task fromDate(?string $from)
  * @method static Builder<static>|Task limitOffset(?int $limit, ?int $offset)
@@ -35,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder<static>|Task whereStatus($value)
  * @method static Builder<static>|Task whereTitle($value)
  * @method static Builder<static>|Task whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Task extends Model
