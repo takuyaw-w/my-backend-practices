@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Task;
 use App\Services\Interface\TaskServiceInterface;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 class TaskService implements TaskServiceInterface
 {

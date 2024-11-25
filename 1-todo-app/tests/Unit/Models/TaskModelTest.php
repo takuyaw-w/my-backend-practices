@@ -5,13 +5,14 @@ namespace Tests\Unit;
 use App\Models\Comment;
 use App\Models\Task;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class TaskModelTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_can_set_and_get_fillable_attributes()
     {
         $task = Task::create([
@@ -29,7 +30,7 @@ class TaskModelTest extends TestCase
         $this->assertEquals(now()->addDays(5)->toDateString(), $task->due_date->toDateString());
     }
 
-    /** @test */
+    #[Test]
     public function it_applies_status_scope_correctly()
     {
         Task::factory()->create(['status' => 'pending']);
@@ -41,7 +42,7 @@ class TaskModelTest extends TestCase
         $this->assertEquals('pending', $tasks->first()->status);
     }
 
-    /** @test */
+    #[Test]
     public function it_applies_date_scopes_correctly()
     {
         $today = now()->startOfDay();
@@ -57,7 +58,7 @@ class TaskModelTest extends TestCase
         $this->assertCount(2, $tasks);
     }
 
-    /** @test */
+    #[Test]
     public function it_applies_limit_offset_scope_correctly()
     {
         Task::factory()->count(5)->create();
@@ -67,7 +68,7 @@ class TaskModelTest extends TestCase
         $this->assertCount(2, $tasks);
     }
 
-    /** @test */
+    #[Test]
     public function it_has_many_comments()
     {
         $task = Task::factory()->create();
@@ -77,7 +78,7 @@ class TaskModelTest extends TestCase
         $this->assertCount(2, $task->comments);
     }
 
-    /** @test */
+    #[Test]
     public function it_handles_nullable_due_date()
     {
         $task = Task::create([

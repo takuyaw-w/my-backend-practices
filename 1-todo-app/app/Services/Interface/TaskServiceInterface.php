@@ -3,11 +3,11 @@
 namespace App\Services\Interface;
 
 use App\Models\Task;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 interface TaskServiceInterface
 {
-    public function getTasks(?string $status, ?string $from, ?string $to, int $limit, int $offset): Collection;
+    public function getTasks(?string $status, ?string $from, ?string $to, int $limit = 10, int $offset = 0): Collection;
 
     public function createTask(array $validatedData): Task;
 

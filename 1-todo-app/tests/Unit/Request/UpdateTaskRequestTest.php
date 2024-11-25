@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Request;
 
-use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use Illuminate\Support\Facades\Validator;
 use Tests\TestCase;
 
@@ -19,7 +19,7 @@ class UpdateTaskRequestTest extends TestCase
             'due_date' => now()->addDays(5)->toDateString(),
         ];
 
-        $request = new StoreTaskRequest;
+        $request = new UpdateTaskRequest;
         $rules = $request->rules();
 
         $validator = Validator::make($data, $rules);
@@ -36,7 +36,7 @@ class UpdateTaskRequestTest extends TestCase
             'due_date' => now()->addDays(5)->toDateString(),
         ];
 
-        $request = new StoreTaskRequest;
+        $request = new UpdateTaskRequest;
         $rules = $request->rules();
 
         $validator = Validator::make($data, $rules);
@@ -55,7 +55,7 @@ class UpdateTaskRequestTest extends TestCase
             'due_date' => now()->addDays(5)->toDateString(),
         ];
 
-        $request = new StoreTaskRequest;
+        $request = new UpdateTaskRequest;
         $rules = $request->rules();
 
         $validator = Validator::make($data, $rules);
@@ -74,7 +74,7 @@ class UpdateTaskRequestTest extends TestCase
             'due_date' => now()->addDays(5)->toDateString(),
         ];
 
-        $request = new StoreTaskRequest;
+        $request = new UpdateTaskRequest;
         $rules = $request->rules();
 
         $validator = Validator::make($data, $rules);
@@ -93,7 +93,7 @@ class UpdateTaskRequestTest extends TestCase
             'due_date' => 'invalid_date',
         ];
 
-        $request = new StoreTaskRequest;
+        $request = new UpdateTaskRequest;
         $rules = $request->rules();
 
         $validator = Validator::make($data, $rules);
@@ -112,7 +112,7 @@ class UpdateTaskRequestTest extends TestCase
             'due_date' => now()->subDays(1)->toDateString(),
         ];
 
-        $request = new StoreTaskRequest;
+        $request = new UpdateTaskRequest;
         $rules = $request->rules();
 
         $validator = Validator::make($data, $rules);
