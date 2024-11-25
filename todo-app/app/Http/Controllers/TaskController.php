@@ -20,11 +20,12 @@ class TaskController extends Controller
     //
     public function index(TaskQueryRequest $request): JsonResponse
     {
-        $status = $request->query('status');
-        $from = $request->query('from');
-        $to = $request->query('to');
-        $limit = $request->query('limit', 10);
-        $offset = $request->query('offset', 0);
+        $validated = $request->validated();
+        $status = $validated['status'] ?? null;
+        $from = $validated['from'] ?? null;
+        $to = $validated['to'] ?? null;
+        $limit = $validated['limit'] ?? 10;
+        $offset = $validated['offset'] ?? 0;
 
         $tasks = $this->taskService->getTasks(
             $status, $from, $to, $limit, $offset
@@ -47,7 +48,7 @@ class TaskController extends Controller
         $task = $this->taskService->getTaskById($id);
 
         if (! $task) {
-            return response()->json(['message' => 'Task not found.', 404]);
+            return response()->json(['message' => 'Task not found.'], 404);
         }
 
         return response()->json($task, 200);
@@ -58,7 +59,7 @@ class TaskController extends Controller
         $task = $this->taskService->getTaskById($id);
 
         if (! $task) {
-            return response()->json(['message' => 'Task not found.', 404]);
+            return response()->json(['message' => 'Task not found.'], 404);
         }
 
         $validated = $request->validated();
@@ -76,7 +77,7 @@ class TaskController extends Controller
         $task = $this->taskService->getTaskById($id);
 
         if (! $task) {
-            return response()->json(['message' => 'Task not found.', 404]);
+            return response()->json(['message' => 'Task not found.'], 404);
         }
 
         $deleted = $this->taskService->deleteTask($task);
@@ -84,6 +85,6 @@ class TaskController extends Controller
             return response()->json(['message' => 'Failed to delete task.'], 500);
         }
 
-        return response()->json(['message' => 'Task deleted successfully', 200]);
+        return response()->json(['message' => 'Task deleted successfully'], 200);
     }
 }
