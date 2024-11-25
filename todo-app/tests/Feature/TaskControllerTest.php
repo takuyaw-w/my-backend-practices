@@ -47,7 +47,6 @@ class TaskControllerTest extends TestCase
         ];
 
         $response = $this->postJson('/api/tasks', $taskData);
-        $response = $this->postJson('/api/tasks', $taskData);
 
         $response->assertStatus(Response::HTTP_CREATED)
             ->assertJsonFragment(['title' => 'Test Task']);
@@ -57,7 +56,6 @@ class TaskControllerTest extends TestCase
     {
         $task = Task::factory()->create(['id' => 1]);
 
-        $response = $this->getJson('/api/tasks/1');
         $response = $this->getJson('/api/tasks/1');
 
         $response->assertStatus(Response::HTTP_OK)
