@@ -44,6 +44,14 @@ class Task extends Model
     /** @use HasFactory<\Database\Factories\TaskFactory> */
     use HasFactory;
 
+    public const SORTABLE_FIELDS = [
+        'title',
+        'status',
+        'due_date',
+        'created_at',
+        'updated_at',
+    ];
+
     protected $fillable = [
         'title',
         'description',
