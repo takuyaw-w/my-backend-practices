@@ -4,13 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -21,28 +21,28 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'created_pg',
+        'updated_pg',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function apiTokens()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(ApiToken::class, 'user_id');
+    }
+
+    public function todos()
+    {
+        return $this->hasMany(Todo::class, 'created_by');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'user_id');
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class, 'user_id');
     }
 }
