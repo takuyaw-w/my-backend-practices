@@ -19,7 +19,25 @@
 
 ---
 
-## **2. テーブル: `todos`**
+## **2. テーブル: `api_tokens`**
+
+API トークンを管理するテーブル。
+
+| カラム名     | データ型     | 必須 | 主キー | 説明                        |
+| ------------ | ------------ | ---- | ------ | --------------------------- |
+| `id`         | SERIAL       | YES  | YES    | トークン ID (自動増分)      |
+| `user_id`    | INT          | YES  | NO     | トークン所有者のユーザー ID |
+| `token`      | VARCHAR(255) | YES  | NO     | API トークン                |
+| `expires_at` | TIMESTAMP    | NO   | NO     | トークンの有効期限          |
+| `deleted_at` | TIMESTAMP    | NO   | NO     | トークンが無効化された時刻  |
+| `created_at` | TIMESTAMP    | YES  | NO     | 作成日時                    |
+| `updated_at` | TIMESTAMP    | YES  | NO     | 更新日時                    |
+| `created_pg` | VARCHAR(255) | NO   | NO     | 作成プログラム              |
+| `updated_pg` | VARCHAR(255) | NO   | NO     | 更新プログラム              |
+
+---
+
+## **3. テーブル: `todos`**
 
 TODO 情報を格納するテーブル。
 
@@ -40,7 +58,7 @@ TODO 情報を格納するテーブル。
 
 ---
 
-## **3. テーブル: `comments`**
+## **4. テーブル: `comments`**
 
 コメント情報を格納するテーブル。
 
@@ -58,7 +76,7 @@ TODO 情報を格納するテーブル。
 
 ---
 
-## **4. テーブル: `logs`**
+## **5. テーブル: `logs`**
 
 システム操作ログを格納するテーブル。
 
@@ -70,6 +88,7 @@ TODO 情報を格納するテーブル。
 | `request_payload`  | JSON         | NO   | NO     | リクエストの内容                     |
 | `response_payload` | JSON         | NO   | NO     | レスポンスの内容                     |
 | `user_id`          | INT          | NO   | NO     | 実行したユーザー ID (認証済みの場合) |
+| `token_id`         | INT          | NO   | NO     | 利用されたトークンの ID              |
 | `created_at`       | TIMESTAMP    | YES  | NO     | 作成日時                             |
 | `created_pg`       | VARCHAR(255) | NO   | NO     | 作成プログラム                       |
 
@@ -78,7 +97,9 @@ TODO 情報を格納するテーブル。
 ### **補足**
 
 - **リレーション**:
+  - `api_tokens.user_id` は `users.id` に紐づく。
   - `todos.assigned_user_id` は `users.id` に紐づく。
   - `comments.user_id` は `users.id` に紐づく。
   - `comments.todo_id` は `todos.id` に紐づく。
   - `logs.user_id` は `users.id` に紐づく。
+  - `logs.token_id` は `api_tokens.id` に紐づく。
