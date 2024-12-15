@@ -7,6 +7,7 @@
 | POST          | `/auth/register`       | ユーザー登録                   | 管理者登録は不可       |
 | POST          | `/auth/admin-register` | 管理者登録                     | 管理者のみアクセス可能 |
 | POST          | `/auth/login`          | ユーザー認証およびトークン発行 | 全ユーザー対象         |
+| POST          | `/auth/logout`         | ログアウト                     | トークン無効化         |
 
 ---
 
@@ -43,3 +44,5 @@
 | GET           | `/todos/{id}/comments`              | コメント一覧の取得 | 全ユーザー対象     |
 | PUT           | `/todos/{id}/comments/{comment_id}` | コメントの編集     | 投稿者のみ編集可能 |
 | DELETE        | `/todos/{id}/comments/{comment_id}` | コメントの削除     | 投稿者のみ削除可能 |
+
+---

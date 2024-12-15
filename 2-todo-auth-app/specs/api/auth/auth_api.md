@@ -98,3 +98,23 @@
       "message": "Invalid credentials."
     }
     ```
+
+#### **1.4 ログアウト**
+
+- **エンドポイント**: `POST /auth/logout`
+- **概要**: 現在使用中の API トークンを無効化する。
+- **認証**: 必須 (トークンを`Authorization`ヘッダーに付与)
+- **リクエストボディ**: なし
+- **レスポンス例**:
+  - **200 OK**
+    ```json
+    {
+      "message": "Logged out successfully."
+    }
+    ```
+  - **401 Unauthorized**
+    ```json
+    {
+      "message": "Unauthorized."
+    }
+    ```
